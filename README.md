@@ -72,6 +72,9 @@ All parameters for the pipeline are in "parameter_config.yml" file. In the termi
 Rscript run_App-GC.R parameter_config.yml
 ```
 
+# License
+MSPepSearch program may be redistributed without restriction. (https://chemdata.nist.gov/dokuwiki/doku.php?id=peptidew:mspepsearch#restrictions_and_disclaimers)
+
 # Contact us
 If you have any enquiries to analyze your data, please contact us. 
 We are happy to recieve any suggestions or comments.

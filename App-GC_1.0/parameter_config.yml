@@ -1,0 +1,130 @@
+
+
+mode: 1D # 1D or 2D
+
+############### GC MS pipeline ##################
+
+#Input_path : "/home/corgi/Documents/Nong/test_GCpipe/gcgui/p_on"
+#Input_path : "/home/corgi/Documents/Nong/test_GCpipe/gcgui/chamy"
+#Input_path : "/home/gcpipe/Documents/GCPIPE/GC_standard"
+#Input_path : "/home/gcpipe/Documents/GCPIPE/Rerun_Standard_aminoA_1D_2D/2D"
+#Input_path : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCMS/HUMAN_SERUM"
+Input_path : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCxGCMS/SRM"
+Input_file : "*.cdf"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/GCxGC_standard/OUTPUT_STANDARD_ERAH_1"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/Rerun_Standard_aminoA_1D_2D/2D/OUTPUT_MATCH_ERAH"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/Rerun_Standard_aminoA_1D_2D/1D/OUTPUT_cent_GCali"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCMS/SRM/OUTPUT_SRM_MATCH_ERah"
+Output_folder : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCxGCMS/SRM/2DSRM_ChromaTOF/run_2DGCexperiment_2/OUTPUT_CENT_ERAH_7"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCxGCMS/SRM/2DSRM_ChromaTOF/run_2DGCexperiment_2/OUTPUT_DEL_ERAH"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCxGCMS/SRM/2DSRM_ChromaTOF/run_2DGCexperiment_2/OUTPUT_DEL_MSPA"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCxGCMS/SRM/2DSRM_ChromaTOF/run_2DGCexperiment_2/OUTPUT_NEB_MSPA"
+#Output_folder : "/home/gcpipe/Documents/GCPIPE/NONG_AUM_GCxGCproject/GCxGCMS/SRM/2DSRM_ChromaTOF/run_2DGCexperiment_2/OUTPUT_MATCH_ERAH"
+
+# Peak  detection
+GC:
+ Peak_detection :
+  do_peak_detection : TRUE 
+  method : centWave	#matchedFilter or centWave or ERah
+  worker : 1
+  CAMERA_perfwhm : 1
+  to2D : TRUE	#Warning! to use 1D-GC peak detection for 2D-GCMS data
+  modulation_time : 4	#modulation time for 2D-GCMS data (requires for to2D mode)
+  centWaveParam : 
+   snthresh : 5
+   ppm : 50
+   peakwidth_min : 3
+   peakwidth_max : 10
+  matchedFilterParam :
+   snthresh : 10
+   fwhm : 4
+   step : 0.5
+   steps : 2 
+   mzdiff : 0 
+   max : 500
+  ERahParam :
+   noise.threshold : 10
+   min.peak.height : 500
+   min.peak.width : 0.7
+ Peak_alignment :	#GCalignR
+  do_peak_alignment : TRUE
+  method : ERah # GCalignR or ERah
+  reference : 2D_SRM2_split20_03082020.cdf 	#defalut = NULL
+  GCalignRParam :
+   max_linear_shift : 0.2
+   max_diff_peak2mean : 0.1
+   min_diff_peak2peak : 0.2
+   delete_single_peak : FALSE
+  ERahParam :
+   min.spectra.cor : 0.70
+   max.time.dist : 3
+
+
+GC2D:
+ Peak_detection :
+  do_peak_detection : FALSE
+  method : "DEL" #use NEB method, fft, delta1, or delta2
+  method_parallel : 2
+  zcv : 0.3 #Default is 0.3 , cut off for z-prob for peak detection region
+  cv : 0.98 #cut off for mass sprectrum similarity score for peak merging
+  peak_merge : TRUE
+  reference : 2D_SRM2_split20_03082020.cdf #defalut = FALSE
+  select_area : FALSE #for GUI mode
+  worker : 10
+  sampling_rate : FALSE 
+  modulation_time : 4
+  profMat_method : "binlin" #bin or binlin
+  profMat_step : 1.0
+  rm_prev_tic : FALSE
+  full_scan : FALSE
+  time_scan :
+   RT1Dstart : 10	# in minute unit
+   RT1Dstop : 11	# in minute unit
+   RT2Dstart : 3	#in range of 1 to modulation time , in second unit
+   RT2Dstop : 4		#in range of 1 to modulation time , in second unit
+  useXY : TRUE
+  x1 : 2
+  x2 : 185
+  y1 : 124
+  y2 : 633
+ Peak_alignment :
+  do_peak_alignment : TRUE
+  method : ERah #mSPA or ERah
+  reference : 2D_SRM2_split20_03082020.cdf
+  mSPAParam : 
+   method : "OP-PAM"
+   w : 0.5    # w: weight for distance (for pm=5) and the initial weight for pm=6   
+   k : 5	# k (kdist): cutoff for the distance-based window (for pm=3)
+   rho : 0.95	# rho (cv): cutoff for the similarity-based window (for pm=4)
+   distance : "canberra" #One of 'maximum', 'manhattan', 'canberra', or 'euclidean'
+   arraySimilarity : "dot" # similarity (sm): "dot", "pearson"
+   createReferenceAlignment : FALSE
+   referenceAlignmentVariant : "mgma" #"Create given reference alignment variant. Variants are 'mSPA', 'mgma' (recommended)
+   sd1Thres : 25.0
+   sd2Thres : 0.05 
+  ERahParam :
+   min.spectra.cor : 0.70
+   max.time.dist : 3
+
+  #mSPAParam
+    # method (pm): peak alignment method
+    #   =1: Only Distance (PAD)
+    #   =2: Only Similarity (PAS)
+    #   =3: Distance window => Similarity (DW-PAS)
+    #   =4: Similarity window => Distance (SW-PAD)
+    #   =5: Mixture similarity (PAM)
+    #   =6: Optimal version of Method 5 (OP-PAM)
+
+Peak_annotation : 
+  do_peak_annotation : TRUE
+  path_MSPepSearch : "../2019_02_22_MSPepSearch_x64/MSPepSearch.exe"
+  MinInt : 40
+  MinMF : 600
+  HITS : 10
+  path_MAIN : "../NIST_library/mainlib"
+  path_REPL= : "../NIST_library/replib"
+  
+Peak_summary : 
+  do_peak_summary : TRUE
+  reference : NULL
+  select_name : 'by_consensus' # 'by_consensus' or 'by_MF'

@@ -1,0 +1,52 @@
+mode: 1D
+Input_path : /var/log/shiny-server/INPUT/Test_D
+Input_file : "*.cdf"
+Output_folder : /var/log/shiny-server/OUTPUT
+GC:
+ Peak_detection : 
+  do_peak_detection : TRUE
+  method : matchedFilter
+  worker : 4
+  CAMERA_perfwhm : 1
+  to2D : FALSE
+  modulation_time : 4
+  centWaveParam : 
+   snthresh : 10
+   ppm : 20
+   peakwidth_min : 5
+   peakwidth_max : 10
+  matchedFilterParam : 
+   snthresh : 10
+   fwhm : 3
+   step : 0.5
+   steps : 2
+   mzdiff : 0
+   max : 500
+  erahParam : 
+   noise.threshold : 20
+   min.peak.height : 500
+   min.peak.width : 0.7
+ Peak_alignment :
+  do_peak_alignment : TRUE
+  method : ERah
+  reference : NULL
+  GCalignRParam : 
+   max_linear_shift : 0.05
+   max_diff_peak2mean : 0.03
+   min_diff_peak2peak : 0.03
+   delete_single_peak : FALSE
+  ERahParam : 
+   min.spectra.cor : 0.7
+   max.time.dist : 3
+Peak_annotation : 
+ do_peak_annotation : TRUE
+ path_MSPepSearch : /2019_02_22_MSPepSearch_x32/MSPepSearch.exe
+ MinInt : 20
+ MinMF : 700
+ HITS : 10
+ path_MAIN : /var/log/shiny-server/NIST_library/mainlib
+ path_REPL : /var/log/shiny-server/NIST_library/replib
+Peak_summary : 
+ do_peak_summary : TRUE
+ reference : NULL
+ select_name : by_consensus

@@ -1,0 +1,15 @@
+June 22nd, 2012
+Nils.Hoffmann@CeBiTec.Uni-Bielefeld.DE
+
+Run
+./mspa-evaluation --help
+
+to get a list of possible command-line 
+parameters.
+
+Run
+./createGroundTruths.sh
+
+to generate the ground truths (MGMA) for all datasets based 
+on the original data.
+

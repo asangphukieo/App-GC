@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
     xtail \
     wget
 	
-RUN R -e 'BiocManager::install(c( "GCalignR","filesstrings","msm","expm","pracma","doSNOW","erah","shinythemes","shinyFiles","shiny","plotly","htmlwidgets","fontawesome"))'
+RUN R -e 'BiocManager::install(c( "GCalignR","filesstrings","msm","expm","pracma","doSNOW","erah","shinythemes","shinyFiles","shiny","shinyjs","plotly","htmlwidgets","fontawesome"))'
 
 
 

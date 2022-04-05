@@ -42,17 +42,22 @@ App-GC is R-based pipeline that integrates open-source software to preprocess GC
 
 ## Installation using Docker (Recommend)
   ```
-  docker build -t app-gc .
+  docker pull asangphukieo/app-gc
   ```
 
   * Run App-GC in commandline version
   ```
-  docker run -p 3838:3838 -v B:\App-GC_1_0_docker\App-GC_1.0_GUI\:/srv/shiny-server/ -v B:\App-GC_1_0_docker\Working:/var/log/shiny-server/ -it app-gc:latest bash
+  docker run -p 3838:3838 -v B:\App-GC_1_0_docker\App-GC_1.0_GUI\:/srv/shiny-server/ -v B:\App-GC_1_0_docker\Working:/var/log/shiny-server/ -it asangphukieo/app-gc:latest bash
   ```
 
-  *  Run App-GC in GUI version
+  *  Run App-GC in GUI version (Linux)
   ```
-  docker run -p 3838:3838 -v B:\App-GC_1_0_docker\App-GC_1.0_GUI\:/srv/shiny-server/ -v B:\App-GC_1_0_docker\Working:/var/log/shiny-server/ -it app-gc:latest exec shiny-server 2>&1
+  sudo docker run -p 3838:3838 -v /home/user/Downloads/App-GC_1.0_GUI/:/srv/shiny-server/ -v /home/user/Downloads/App-GC_1.0_GUI/Working:/var/log/shiny-server/ -it asangphukieo/app-gc:latest exec shiny-server 2>&1
+  ```
+  
+  *  Run App-GC in GUI version (Window)
+  ```
+  docker run -p 3838:3838 -v B:\App-GC_1_0_docker\App-GC_1.0_GUI\:/srv/shiny-server/ -v B:\App-GC_1_0_docker\Working:/var/log/shiny-server/ -it asangphukieo/app-gc:latest exec shiny-server 2>&1
   ```
 
 ## Set up NIST library folder (comercial library)

@@ -41,6 +41,11 @@ App-GC is R-based pipeline that integrates open-source software to preprocess GC
   ```
 
 ## Installation using Docker (Recommend)
+  * 1. Clone App-GC script from github and move to App-GC folder
+  ```
+  cd 
+  ```
+  * 2. Pull app-gc docker containing (~8GB)
   ```
   docker pull asangphukieo/app-gc
   ```

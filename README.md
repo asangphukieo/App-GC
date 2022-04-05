@@ -59,6 +59,8 @@ App-GC is R-based pipeline that integrates open-source software to preprocess GC
   ```
   docker run -p 3838:3838 -v B:\App-GC_1_0_docker\App-GC_1.0_GUI\:/srv/shiny-server/ -v B:\App-GC_1_0_docker\Working:/var/log/shiny-server/ -it asangphukieo/app-gc:latest exec shiny-server 2>&1
   ```
+  
+  - For GUI version go to your browser and type http://localhost:3838/App-GC_1.0/
 
 ## Set up NIST library folder (comercial library)
 put NIST library in working folder (mainlib and replib)

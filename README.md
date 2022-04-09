@@ -87,6 +87,9 @@ All parameters for the pipeline are in "parameter_config.yml" file. In the termi
 Rscript run_App-GC.R parameter_config.yml
 ```
 
+# Input
+Now, App-GC supports only CDF file format. For other types, you might use open source software e.g. Openchrom (https://lablicate.com/platform/openchrom) to convert the file to CDF format.
+
 # License
 MSPepSearch program may be redistributed without restriction. (https://chemdata.nist.gov/dokuwiki/doku.php?id=peptidew:mspepsearch#restrictions_and_disclaimers)
 
